@@ -19,7 +19,9 @@ function Header() {
                 <Link to="/auth">
                     <button className="btn book-demo">Sign In</button>
                 </Link>
-                <button className="btn get-started">Get Started</button>
+                <Link to="/Dashboard">
+                    <button className="btn get-started">Get Started</button>
+                </Link>
             </div>
         </header>
     );
