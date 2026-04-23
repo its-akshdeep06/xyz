@@ -8,12 +8,21 @@ import AmuLogo from './assets/amu-logo.svg';
 import EyeIcon from './assets/eye.svg';
 import EyeOffIcon from './assets/eye-off.svg';
 import { Link } from "react-router-dom";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 
 const slides = [Img1, Img2, Img3];
 
 function Auth() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [showPassword, setShowPassword] = useState(false);
+
+    const googleLogin = useGoogleLogin({
+        onSuccess: tokenResponse => {
+            console.log(tokenResponse);
+            navigate('/dashboard');
+        },
+        onError: error => console.log(error),
+    });
 
     // Auto-slide every 4 seconds
     useEffect(function () {
@@ -26,7 +35,7 @@ function Auth() {
         return function () {
             clearInterval(timer);
         };
-    }, []);
+    }, []); 
 
     return (
         <section className="auth-container">
@@ -136,11 +145,10 @@ function Auth() {
 
                     {/* Social buttons */}
                     <div className="auth-social">
-                        <button>
+                        <button onClick={googleLogin}>
                             <img src={Google} alt="Google" />
                             Google
                         </button>
-
                         <button>
                             <img src={Apple} alt="Apple" />
                             Apple
